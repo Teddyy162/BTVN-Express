@@ -6,7 +6,62 @@ export const binhLuanService = {
     async findAll(req, res) {
         //sequelize
         // return "list bình luận"
-        const result = await prisma.binh_luan.findMany()
+        const result = await prisma.binh_luan.findMany({
+            where: {
+                isDeleted: false
+            }
+        })
+        return result;
+    },
+
+    async create(req) {
+        const body = req.body;
+        const result = await prisma.binh_luan.create({
+            data: {
+                noi_dung: body.noi_dung,
+                ngay_binh_luan: body.ngay_binh_luan,
+                nguoi_dung_id: body.nguoi_dung_id,
+                hinh_id: body.hinh_id
+            }
+        })
+        return result;
+    },
+
+    async update(req) {
+        const body = req.body;
+        const { binhLuanID } = req.params;
+
+        if (!body || !body.noi_dung) {
+            throw new Error("noi_dung is required");
+        }
+
+        const result = await prisma.binh_luan.update({
+            where: {
+                binh_luan_id: Number(binhLuanID)
+            },
+            data: {
+                noi_dung: body.noi_dung,
+                ngay_binh_luan: body.ngay_binh_luan
+            }
+        });
+
+        return result;
+    },
+
+    async delete(req) {
+        const { binhLuanID } = req.params;
+
+        const result = await prisma.binh_luan.update({
+            where: {
+                binh_luan_id: Number(binhLuanID)
+            },
+            data: {
+                isDeleted: true,
+                deletedAt: new Date(),
+                deletedBy: 1
+            }
+        });
+
         return result;
     },
 }
