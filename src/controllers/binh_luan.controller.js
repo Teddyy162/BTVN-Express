@@ -24,18 +24,18 @@ export const binhLuanController = {
         const response = responseSuccess(
             result,
             "Cập nhật bình luận thành công",
-            statusCodes.OK  // ✅ Thêm dòng này
+            statusCodes.OK
         );
         res.status(response.statusCode).json(response);
     },
 
     async delete(req, res) {
         const result = await binhLuanService.delete(req);
-        const response = responseSuccess(  // ✅ Bỏ return, thêm const
+        const response = responseSuccess(
             result,
             "Xóa bình luận thành công",
             statusCodes.OK
         );
-        res.status(response.statusCode).json(response);  // ✅ Dòng này chạy được
+        res.status(response.statusCode).json(response);
     },
 }

@@ -297,10 +297,10 @@ export type nguoi_dungOrderByWithRelationInput = {
 
 export type nguoi_dungWhereUniqueInput = Prisma.AtLeast<{
   nguoi_dung_id?: number
+  email?: string
   AND?: Prisma.nguoi_dungWhereInput | Prisma.nguoi_dungWhereInput[]
   OR?: Prisma.nguoi_dungWhereInput[]
   NOT?: Prisma.nguoi_dungWhereInput | Prisma.nguoi_dungWhereInput[]
-  email?: Prisma.StringNullableFilter<"nguoi_dung"> | string | null
   mat_khau?: Prisma.StringNullableFilter<"nguoi_dung"> | string | null
   ho_ten?: Prisma.StringNullableFilter<"nguoi_dung"> | string | null
   tuoi?: Prisma.IntNullableFilter<"nguoi_dung"> | number | null
@@ -313,7 +313,7 @@ export type nguoi_dungWhereUniqueInput = Prisma.AtLeast<{
   binh_luan?: Prisma.Binh_luanListRelationFilter
   hinh_anh?: Prisma.Hinh_anhListRelationFilter
   luu_anh?: Prisma.Luu_anhListRelationFilter
-}, "nguoi_dung_id">
+}, "nguoi_dung_id" | "email">
 
 export type nguoi_dungOrderByWithAggregationInput = {
   nguoi_dung_id?: Prisma.SortOrder

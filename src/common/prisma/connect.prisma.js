@@ -12,7 +12,13 @@ const adapter = new PrismaMariaDb({
   port: url.port,
 });
 
-const prisma = new PrismaClient({adapter}
+const prisma = new PrismaClient({
+  adapter, omit: {
+    nguoi_dung: {
+      mat_khau: true
+    }
+  }
+}
 );
 
 //kiểm tra kết nối

@@ -1,17 +1,33 @@
 import binhLuanModel from "../models/binh_luan.model.js";
 import { prisma } from "../common/prisma/connect.prisma.js";
+import { buildQueryPrisma } from "../common/helpers/build-query-prisma.helper.js";
 
 
 export const binhLuanService = {
     async findAll(req, res) {
         //sequelize
         // return "list bình luận"
+
+        const { where, index, page, pageSize } = buildQueryPrisma(req);
+
         const result = await prisma.binh_luan.findMany({
-            where: {
-                isDeleted: false
-            }
-        })
-        return result;
+            where: where,
+            skip: index,
+            take: pageSize,
+        });
+
+        const totalItems = await prisma.binh_luan.count({
+            where: where,
+        });
+        const totalPages = Math.ceil(totalItems / pageSize);
+
+        return {
+            items: result,
+            totalItems,
+            totalPages,
+            page,
+            pageSize
+        };
     },
 
     async create(req) {
