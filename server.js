@@ -5,6 +5,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { logAPI } from './src/common/middlewares/log-api.middleware.js';
 import { appLimit } from './src/common/middlewares/rateLimit.middleware.js';
+import { csrfProtection } from './src/common/middlewares/csrf.middleware.js';
 const app = express();
 
 // app.use((req, res, next) => {
@@ -21,6 +22,7 @@ app.use(cors({
 app.use(express.json()); //middleware để parse json dữ liệu json từ client gửi lên server
 
 app.use(cookieParser()); //middleware để parse cookie từ client gửi lên server
+app.use(csrfProtection);
 
 app.use(logAPI());
 

@@ -1,6 +1,12 @@
 import { responseSuccess } from '../common/helpers/response.helper.js';
 import { dnhap_dkyService } from '../services/dnhap_dky.service.js';
 
+const authCookieOptions = {
+   httpOnly: true,
+   sameSite: 'strict',
+   secure: process.env.NODE_ENV === 'production',
+};
+
 export const dnhap_dkyController = {
    async register(req, res, next) {
       const result = await dnhap_dkyService.register(req);
@@ -12,8 +18,8 @@ export const dnhap_dkyController = {
       const result = await dnhap_dkyService.login(req);
       const response = responseSuccess(true, `đăng nhập thành công`);
 
-      res.cookie("accessToken", result.accessToken);
-      res.cookie("refreshToken", result.refreshToken);
+      res.cookie("accessToken", result.accessToken, authCookieOptions);
+      res.cookie("refreshToken", result.refreshToken, authCookieOptions);
 
       res.status(response.statusCode).json(response);
    },
@@ -27,8 +33,8 @@ export const dnhap_dkyController = {
    async refreshToken(req, res, next) {
       const result = await dnhap_dkyService.refreshToken(req);
       const response = responseSuccess(true, `Làm mới token thành công`);
-      res.cookie("accessToken", result.accessToken);
-      res.cookie("refreshToken", result.refreshToken);
+      res.cookie("accessToken", result.accessToken, authCookieOptions);
+      res.cookie("refreshToken", result.refreshToken, authCookieOptions);
       res.status(response.statusCode).json(response);
    }
 
