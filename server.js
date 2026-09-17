@@ -4,7 +4,7 @@ import { appError } from './src/common/helpers/appError.helper.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { logAPI } from './src/common/middlewares/log-api.middleware.js';
-import { appLimit } from './src/common/middlewares/RateLimit.middleware.js';
+import { appLimit } from './src/common/middlewares/rateLimit.middleware.js';
 const app = express();
 
 // app.use((req, res, next) => {
