@@ -24,6 +24,9 @@ app.use(cookieParser()); //middleware để parse cookie từ client gửi lên 
 
 app.use(logAPI());
 
+app.use(express.static("public"));//middleware để phục vụ các tệp tĩnh từ thư mục gốc của dự án
+
+
 app.use("/api", appLimit,rootRouter)
 app.use(appError)
 
