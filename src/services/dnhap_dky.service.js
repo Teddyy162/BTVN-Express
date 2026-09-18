@@ -5,7 +5,7 @@ import { tokenService } from "./token.service.js";
 
 export const dnhap_dkyService = {
     async register(req) {
-        const { email, mat_khau, ho_ten } = req.body;
+        const { email, mat_khau, ho_ten, tuoi } = req.body;
 
         //kiểm tra email đã được đăng chưa
         const userExit = await prisma.nguoi_dung.findUnique({
@@ -28,6 +28,7 @@ export const dnhap_dkyService = {
                 email: email,
                 mat_khau: hashPassword,
                 ho_ten: ho_ten,
+                tuoi: tuoi
             }
         });
         return true;
@@ -89,7 +90,7 @@ export const dnhap_dkyService = {
         if (decodeAccessToken.userID !== decodeRefreshToken.userID) {
             throw new UnauthorizedException("Token không hợp lệ");
         };
-        
+
         //kiểm tra xem người dùng có tồn tại trong cơ sở dữ liệu hay không
         const userExist = await prisma.nguoi_dung.findUnique({
             where: {
@@ -118,4 +119,5 @@ export const dnhap_dkyService = {
             refreshToken: refreshToken
         };
     },
+
 };

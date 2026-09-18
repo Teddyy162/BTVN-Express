@@ -15,5 +15,21 @@ export const nguoi_dungController = {
       res.status(response.statusCode).json(response);
    },
 
-   
+   async updateUserInfo(req, res, next) {
+      try {
+         const { id } = req.params;
+         const { ho_ten, tuoi, email } = req.body;
+         const result = await nguoi_dungService.updateUserInfo(Number(id), {
+            ho_ten,
+            tuoi,
+            email
+         });
+         const response = responseSuccess(result, "Cập nhật thông tin user thành công");
+         res.status(response.statusCode).json(response);
+      } catch (error) {
+         next(error);
+      }
+   },
+
+
 };
